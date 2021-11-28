@@ -9,10 +9,12 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Touch touch;
     private int coins;
-    public int valueOfCoins;
-    public float speed, sensitivity;
     public Text score, score_L, score_W;
     public GameObject restart, gameOver, finish;
+    
+    [Header("Set in Inspector")]
+    public int valueOfCoins;
+    public float speed, sensitivity;
 
     void Start()
     {
