@@ -6,41 +6,41 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    private CharacterController controller;
-    private Touch touch;
-    private int coins;
-    public Text score, score_L, score_W;
-    public GameObject restart, gameOver, finish;
+    private Touch _touch;
+    private int _coins;
+    [SerializeField] private Text score, scoreL, scoreW;
+    [SerializeField] private GameObject restart, gameOver, finish;
     
     [Header("Set in Inspector")]
-    public int valueOfCoins;
-    public float speed, sensitivity;
+    [SerializeField] private int valueOfCoins;
+    [SerializeField] private float speed, sensitivity;
 
-    void Start()
+    private void Start()
     {
-        controller = GetComponent<CharacterController>();
         Time.timeScale = 1;
     }
 
-    void FixedUpdate()
-    {
-        Vector3 dir = new Vector3(0, 0, speed);
-        controller.Move(dir * Time.fixedDeltaTime);
+    private void FixedUpdate()
+    {       
+        Vector3 pos = this.transform.position;
+        pos.z += speed * Time.deltaTime;
+        this.transform.position = pos;
 
         if (Input.touchCount > 0)
         {
-            touch = Input.GetTouch(0);
+            _touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Moved)
+            if (_touch.phase == TouchPhase.Moved)
             {
                 transform.position = new Vector3(
-                    transform.position.x + touch.deltaPosition.x * sensitivity / 100,
+                    transform.position.x + _touch.deltaPosition.x * sensitivity,
                     transform.position.y, transform.position.z);
                 
-                float posx = transform.position.x;
-                if (Math.Abs(posx) > 5)
+                var posx = transform.position.x;
+                var roadWidth = 10;
+                if (Math.Abs(posx) > roadWidth / 2)
                 {
-                    posx = 5 * posx / Math.Abs(posx);
+                    posx = (roadWidth / 2) * posx / Math.Abs(posx);
                     transform.position = new Vector3(posx,
                     transform.position.y, transform.position.z);
                 }
@@ -48,34 +48,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "coin")
+        if (other.gameObject.CompareTag("coin"))
         {
-            coins += valueOfCoins;
-            score.text = coins.ToString();
+            _coins += valueOfCoins;
+            score.text = _coins.ToString();
             Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("obstacle"))
+        {
+            gameOver.SetActive(true);
+            scoreL.text = score.text;
+            Collision();
+        }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            finish.SetActive(true);
+            scoreW.text = score.text;
+            Collision();
         }
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    private void Collision()
     {
-        if (hit.gameObject.tag == "obstacle")
-        {
-            gameOver.SetActive(true);
-            restart.SetActive(false);
-            score_L.text = score.text;
-            score.text = " ";
-            Time.timeScale = 0;
-        }
-
-        if (hit.gameObject.tag == "Finish")
-        {
-            finish.SetActive(true);
-            restart.SetActive(false);
-            score_W.text = score.text;
-            score.text = " ";
-            Time.timeScale = 0;
-        }
+        restart.SetActive(false);
+        score.text = " ";
+        Time.timeScale = 0;
     }
 }
