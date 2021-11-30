@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private int _coins;
     [SerializeField] private Text score, scoreL, scoreW;
     [SerializeField] private GameObject restart, gameOver, finish;
-    
+
     [Header("Set in Inspector")]
     [SerializeField] private int valueOfCoins;
     [SerializeField] private float speed, sensitivity;
@@ -21,10 +21,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {       
-        Vector3 pos = this.transform.position;
-        pos.z += speed * Time.deltaTime;
-        this.transform.position = pos;
+    {
+        GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * speed);
 
         if (Input.touchCount > 0)
         {

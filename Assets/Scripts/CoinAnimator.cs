@@ -6,7 +6,7 @@ public class CoinAnimator : MonoBehaviour
 {
     private void Update()
     {
-        var rotationalSpeed = 30;
+        var rotationalSpeed = 50;
         transform.Rotate(0, rotationalSpeed * Time.deltaTime, 0);
     }
 }
