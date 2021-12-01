@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 357368416}
   - component: {fileID: 357368415}
   - component: {fileID: 357368414}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CylinderL
   m_TagString: obstacle
   m_Icon: {fileID: 0}
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 489775954}
   - component: {fileID: 489775953}
   m_Layer: 5
-  m_Name: ScoreL
+  m_Name: ScoreLose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1266,8 +1266,8 @@ GameObject:
   - component: {fileID: 819118712}
   - component: {fileID: 819118711}
   - component: {fileID: 819118710}
-  m_Layer: 0
-  m_Name: CylinderH
+  m_Layer: 8
+  m_Name: FinishTape
   m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1613,7 +1613,7 @@ GameObject:
   - component: {fileID: 1032652862}
   - component: {fileID: 1032652861}
   m_Layer: 5
-  m_Name: ScoreW
+  m_Name: ScoreWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3002,6 +3002,7 @@ GameObject:
   - component: {fileID: 1968064294}
   - component: {fileID: 1968064299}
   - component: {fileID: 1968064298}
+  - component: {fileID: 1968064300}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3098,13 +3099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf63026cc70fdac48a2efd857ca57fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: {fileID: 657213054}
-  scoreL: {fileID: 489775953}
-  scoreW: {fileID: 1032652861}
-  restart: {fileID: 729568272}
-  gameOver: {fileID: 1764013450}
-  finish: {fileID: 1726265822}
-  valueOfCoins: 10
   speed: 8
   sensitivity: 0.01
 --- !u!54 &1968064299
@@ -3123,6 +3117,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &1968064300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968064293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2fea4c260dc204186582c19195cd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 657213054}
+  scoreLose: {fileID: 489775953}
+  scoreWin: {fileID: 1032652861}
+  restart: {fileID: 729568272}
+  gameOver: {fileID: 1764013450}
+  finish: {fileID: 1726265822}
+  valueOfCoins: 10
 --- !u!1001 &1990024443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3197,7 +3210,7 @@ GameObject:
   - component: {fileID: 2017254648}
   - component: {fileID: 2017254647}
   - component: {fileID: 2017254646}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CylinderR
   m_TagString: obstacle
   m_Icon: {fileID: 0}
